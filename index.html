@@ -77,7 +77,7 @@
             }, 20);
 
             function rotate(alpha, beta, gamma) {
-                var blueDeg = gamma,
+                var blueDeg = alpha,
                     redDeg = beta;
 
                     /*
@@ -87,7 +87,7 @@
                 }
                */
 
-                $("#data").text(beta);
+                //$("#data").text(beta);
 
                 $("#bluecircle").css("transform", "rotateY(" + blueDeg + "deg)");
                 $("#redcircle-y").css("transform", "rotateY(" + -blueDeg + "deg)");
