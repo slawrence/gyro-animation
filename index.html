@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style>
+            #container {
+                position: relative;
+                width: 400px;
+                height: 400px;
+                margin: 100px auto;
+            }
+
+            #bluecircle {
+                transform-style: preserve-3d;
+                position: absolute;
+                background: url(bluecircle.png) no-repeat;
+                background-size: 100% 100%;
+                width: 100%;
+                height: 100%;
+            }
+
+            #redcircle-y {
+                transform-style: preserve-3d;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+
+            #redcircle-x {
+                position: absolute;
+                background: url(redcircle.png) no-repeat;
+                background-size: 100% 100%;
+                width: 100%;
+                height: 100%;
+            }
+
+            #data {
+                position: absolute;
+                margin: auto;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+
+        </style>
+        <script src="http://richtr.github.io/doe/doe.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+
+    <script src="fulltilt.js"></script>
+    </head>
+    <body>
+        <div id="container">
+            <div id="bluecircle">
+                <div id="redcircle-y">
+                    <div id="redcircle-x">
+                    </div>
+                </div>
+            </div>
+            <div id="data">
+                <span>gamma</span>
+            </div>
+        </div>
+        <script>
+            var deg = 0,
+                innerDeg = 0;
+            window.setInterval(function () {
+                return;
+                deg++;
+                deg = deg % 360;
+                $("#bluecircle").css("transform", "rotateY(" + deg + "deg)");
+
+                $("#redcircle-x").css("transform", "rotateX(" + deg + "deg)");
+                //$("#redcircle-y").css("transform", "rotateY(" + -deg + "deg)");
+            }, 20);
+
+            function rotate(alpha, beta, gamma) {
+                var blueDeg = gamma,
+                    redDeg = beta;
+
+                    /*
+                redDeg = redDeg + 90;
+                if (redDeg > 180) {
+                    redDeg = -(redDeg - 180)
+                }
+               */
+
+                $("#data").text(beta);
+
+                $("#bluecircle").css("transform", "rotateY(" + blueDeg + "deg)");
+                //$("#redcircle-y").css("transform", "rotateY(" + -blueDeg + "deg)");
+
+
+                $("#redcircle-x").css("transform", "rotateX(" + redDeg + "deg)");
+            }
+
+            window.addEventListener("deviceorientation", function (e) {
+                var gamma = e.gamma, //tilt left-right
+                    beta = e.beta, //tilt front-back
+                    alpha = e.alpha; //compass direction
+
+                //rotate(alpha, beta, gamma);
+            });
+
+            var deviceOrientation;
+            var promise = new FULLTILT.getDeviceOrientation({ 'type': 'world' });
+
+            promise
+                .then(function(controller) {
+                  deviceOrientation = controller;
+                });
+
+            (function draw() {
+                if (deviceOrientation) {
+                    var euler = deviceOrientation.getScreenAdjustedEuler();
+
+                    rotate(euler.alpha, euler.beta, euler.gamma);
+                }
+                requestAnimationFrame(draw);
+            }());
+
+        </script>
+    </body>
+</html>
