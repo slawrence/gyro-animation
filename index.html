@@ -5,8 +5,8 @@
         <style>
             #container {
                 position: relative;
-                width: 400px;
-                height: 400px;
+                width: 260px;
+                height: 260px;
                 margin: 100px auto;
             }
 
@@ -73,7 +73,7 @@
                 $("#bluecircle").css("transform", "rotateY(" + deg + "deg)");
 
                 $("#redcircle-x").css("transform", "rotateX(" + deg + "deg)");
-                //$("#redcircle-y").css("transform", "rotateY(" + -deg + "deg)");
+                $("#redcircle-y").css("transform", "rotateY(" + -deg + "deg)");
             }, 20);
 
             function rotate(alpha, beta, gamma) {
@@ -90,7 +90,7 @@
                 $("#data").text(beta);
 
                 $("#bluecircle").css("transform", "rotateY(" + blueDeg + "deg)");
-                //$("#redcircle-y").css("transform", "rotateY(" + -blueDeg + "deg)");
+                $("#redcircle-y").css("transform", "rotateY(" + -blueDeg + "deg)");
 
 
                 $("#redcircle-x").css("transform", "rotateX(" + redDeg + "deg)");
